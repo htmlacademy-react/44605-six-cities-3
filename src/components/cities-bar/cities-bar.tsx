@@ -1,6 +1,6 @@
 import { NameOfCities } from '../../const/const';
 
-export default function CityNavigation() {
+export default function CitiesBar() {
   return (
     <div className="tabs">
       <section className="locations container">

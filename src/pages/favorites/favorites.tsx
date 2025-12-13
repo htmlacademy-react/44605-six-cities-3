@@ -1,5 +1,5 @@
-import Header from '../../common-components/header/header';
-import Footer from '../../common-components/footer/footer';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 
 export default function Favorites() {
   return (

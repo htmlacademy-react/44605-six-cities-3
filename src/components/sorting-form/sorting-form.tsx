@@ -1,4 +1,4 @@
-import Sorting from '../../../common-components/sorting/sorting';
+import Sorting from '../sorting/sorting';
 
 export default function SortingForm() {
   return (

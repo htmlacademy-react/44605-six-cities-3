@@ -8,7 +8,7 @@ interface CardProps {
   rating?: number; // Рейтинг отеля
 }
 
-export default function Card({ img, premium, price, title, type = 'room', isFavorite, rating }: CardProps) {
+export default function PlaceCard({ img, premium, price, title, type, isFavorite, rating }: CardProps) {
   const ratingWidth = rating ? `${Math.round((rating / 5) * 100)}%` : '0%';
 
   return (
