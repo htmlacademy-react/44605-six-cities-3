@@ -1,6 +1,7 @@
+// Импортирую массив наименований 6 городов
 import { NameOfCities } from '../../const/const';
 
-export default function CitiesBar() {
+export default function CitiesNavigation(): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">

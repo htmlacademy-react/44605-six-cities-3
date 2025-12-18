@@ -1,14 +1,8 @@
-interface CardProps {
-  img: string; // Адрес изображения
-  premium?: boolean; // Отметка о премиум сегменте
-  price: number; // Стоимость
-  title: string; // Наименование
-  type?: string; // Тип жилья (апартаменты, квартира, отель)
-  isFavorite?: boolean; // Отметка об избранном
-  rating?: number; // Рейтинг отеля
-}
 
-export default function PlaceCard({ img, premium, price, title, type, isFavorite, rating }: CardProps) {
+import { Offer } from '../../types';
+
+export default function PlaceCard(offer: Offer): JSX.Element {
+  const { price, img, title, type, rating, isFavorite, premium } = offer;
   const ratingWidth = rating ? `${Math.round((rating / 5) * 100)}%` : '0%';
 
   return (
