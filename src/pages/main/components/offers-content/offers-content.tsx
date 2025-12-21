@@ -3,8 +3,6 @@ import PlaceCard from '../../../../components/place-card/place-card';
 import SearchInfo from '../search-info/search-info';
 import SortingForm from '../sorting-form/sorting-form';
 import { Offers } from '../../../../types';
-import { Link } from 'react-router-dom';
-
 
 export default function OffersContent({ offers }: Offers): JSX.Element {
   return (
