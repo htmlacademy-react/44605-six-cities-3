@@ -13,10 +13,14 @@
 }
 
 .error__link-to-main {
-  border: 3px solid gray;
-  border-radius: 20%;
-  color:darkslategrey;
+  margin: 0 auto;
   text-align: center;
   width: 150px;
-  margin: 0 auto;
+  height: 30px;
+  transition: all 0.5s ease;
+}
+
+.error__link-to-main:hover {
+  color: royalblue;
+  transform: scale(1.2);
 }

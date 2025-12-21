@@ -4,7 +4,7 @@ import './error.css';
 
 export default function Error() {
   return (
-    <>
+    <div className='error-page'>
       <Empty
         classDiv='error404__status-wrapper'
         boldContent='Ошибка 404'
@@ -13,6 +13,6 @@ export default function Error() {
       <div className='error__link-to-main'>
         <Link to='/'>На главную</Link>
       </div>
-    </>
+    </div>
   );
 }

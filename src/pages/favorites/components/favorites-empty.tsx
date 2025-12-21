@@ -9,6 +9,5 @@ export default function FavoritesEmpty(): JSX.Element {
       boldContent='Nothing yet saved.'
       paragraph='Save properties to narrow down search or plan your future trips.'
     />
-
   );
 }

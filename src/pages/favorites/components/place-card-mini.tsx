@@ -1,10 +1,12 @@
+import { Link } from 'react-router-dom';
+
 export default function PlaceCardMini(): JSX.Element {
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to="#">
           <img className="place-card__image" src="img/apartment-small-04.jpg" width="150" height="110" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -26,7 +28,7 @@ export default function PlaceCardMini(): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">White castle</a>
+          <Link to='#'>White castle</Link>
         </h2>
         <p className="place-card__type">Apartment</p>
       </div>
