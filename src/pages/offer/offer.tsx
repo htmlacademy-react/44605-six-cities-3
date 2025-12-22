@@ -11,7 +11,6 @@ export default function Offer({ offers }: Offers): JSX.Element {
       <Helmet>
         <title>Предложения</title>
       </Helmet>
-
       <main className="page__main page__main--offer">
         <section className="offer">
           <PreviewPhoto />

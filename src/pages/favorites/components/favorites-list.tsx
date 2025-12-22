@@ -1,4 +1,5 @@
 import PlaceCardMini from './place-card-mini';
+import { Link } from 'react-router-dom';
 
 export default function FavoritesList(): JSX.Element {
   return (
@@ -6,9 +7,9 @@ export default function FavoritesList(): JSX.Element {
       <li className="favorites__locations-items">
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
+            <Link className="locations__item-link" to="#">
               <span>Amsterdam</span>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="favorites__places">
@@ -20,9 +21,9 @@ export default function FavoritesList(): JSX.Element {
       <li className="favorites__locations-items">
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
+            <Link className="locations__item-link" to="#">
               <span>Cologne</span>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="favorites__places">

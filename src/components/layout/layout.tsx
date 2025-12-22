@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { AppRoute } from '../../const/const';
+import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { getLayoutState } from './utils';
 import { authorizationStatus } from '../../const/const';
 
@@ -20,7 +20,7 @@ export default function Layout(): JSX.Element {
             {shouldRenderUser ? (
               <nav className="header__nav">
                 <ul className="header__nav-list">
-                  {authorizationStatus() ?
+                  {authorizationStatus() === AuthorizationStatus.Auth ?
                     <>
                       <li className="header__nav-item user">
                         <Link to={AppRoute.favorites} className="header__nav-link header__nav-link--profile">
@@ -38,7 +38,7 @@ export default function Layout(): JSX.Element {
                     </>
                     :
                     <li className="header__nav-item user">
-                      <Link to='#' className="header__nav-link header__nav-link--profile" >
+                      <Link to={AppRoute.login} className="header__nav-link header__nav-link--profile" >
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
                         <span className="header__login">Sign in</span>

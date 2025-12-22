@@ -6,14 +6,18 @@ export function getLayoutState(pathName: AppRoute) {
   let shouldRenderUser = true;
   let shouldRenderFooter = false;
 
-  if (pathName === AppRoute.root) {
-    divClassName = 'page--gray page--main';
-    linkClassName = 'header__logo-link--active';
-  } else if (pathName === AppRoute.login) {
-    divClassName = 'page--gray page--login';
-    shouldRenderUser = false;
-  } else if (pathName === AppRoute.favorites) {
-    shouldRenderFooter = true;
+  switch (pathName) {
+    case (AppRoute.root):
+      divClassName = 'page--gray page--main';
+      linkClassName = 'header__logo-link--active';
+      break;
+    case (AppRoute.login):
+      divClassName = 'page--gray page--login';
+      shouldRenderUser = false;
+      break;
+    case (AppRoute.favorites):
+      shouldRenderFooter = true;
+      break;
   }
 
   return { linkClassName, divClassName, shouldRenderUser, shouldRenderFooter };

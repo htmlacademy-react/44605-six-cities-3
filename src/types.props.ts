@@ -11,4 +11,5 @@ export interface EmptyProps {
 export interface PrivateRouteProps {
   children: JSX.Element;
   authorizationStatus: AuthorizationStatus;
+  login?: boolean;
 }
