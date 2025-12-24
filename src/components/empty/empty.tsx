@@ -1,0 +1,10 @@
+import { EmptyProps } from '../../types.props';
+
+export default function Empty({ classDiv, classB, classP, boldContent, paragraph }: EmptyProps): JSX.Element {
+  return (
+    <div className={classDiv}>
+      <b className={classB}>{boldContent}</b>
+      <p className={classP}>{paragraph}</p>
+    </div>
+  );
+}

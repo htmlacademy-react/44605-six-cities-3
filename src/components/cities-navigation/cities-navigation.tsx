@@ -1,6 +1,8 @@
+// Импортирую массив наименований 6 городов
 import { NameOfCities } from '../../const/const';
+import { Link } from 'react-router-dom';
 
-export default function CitiesBar() {
+export default function CitiesNavigation(): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -9,9 +11,9 @@ export default function CitiesBar() {
             NameOfCities.map((city: string) => (
               <li className="locations__item" key={city}>
                 {/* Нужно продумать атрибут checked для выбранного города*/}
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to='#' className="locations__item-link tabs__item" >
                   <span>{city}</span>
-                </a>
+                </Link>
               </li>
             ))
           }

@@ -1,14 +1,8 @@
-interface CardProps {
-  img: string; // Адрес изображения
-  premium?: boolean; // Отметка о премиум сегменте
-  price: number; // Стоимость
-  title: string; // Наименование
-  type?: string; // Тип жилья (апартаменты, квартира, отель)
-  isFavorite?: boolean; // Отметка об избранном
-  rating?: number; // Рейтинг отеля
-}
+import { Offer } from '../../types';
+import { Link } from 'react-router-dom';
 
-export default function PlaceCard({ img, premium, price, title, type, isFavorite, rating }: CardProps) {
+export default function PlaceCard({ offer }: { offer: Offer }): JSX.Element {
+  const { price, img, title, type, rating, isFavorite, premium } = offer;
   const ratingWidth = rating ? `${Math.round((rating / 5) * 100)}%` : '0%';
 
   return (
@@ -19,9 +13,9 @@ export default function PlaceCard({ img, premium, price, title, type, isFavorite
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper" >
-        <a href="#">
+        <Link to="#">
           <img className="place-card__image" src={img} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div >
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -43,7 +37,7 @@ export default function PlaceCard({ img, premium, price, title, type, isFavorite
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to="#">{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div >

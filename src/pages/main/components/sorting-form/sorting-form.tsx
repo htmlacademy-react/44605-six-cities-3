@@ -1,6 +1,7 @@
+// import { FormEvent } from 'react';
 import Sorting from '../sorting/sorting';
 
-export default function SortingForm() {
+export default function SortingForm(): JSX.Element {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
@@ -11,6 +12,6 @@ export default function SortingForm() {
         </svg>
       </span>
       < Sorting />
-    </form>
+    </form >
   );
 }
