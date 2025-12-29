@@ -5,7 +5,7 @@ import Map from './components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 import { IOfferProps } from '../../types.props';
 
-export default function Offer({ offers }: IOfferProps): JSX.Element {
+export default function Offer({ offers, isAuth }: IOfferProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -14,7 +14,7 @@ export default function Offer({ offers }: IOfferProps): JSX.Element {
       <main className="page__main page__main--offer">
         <section className="offer">
           <PreviewPhoto />
-          <OfferWrapper />
+          <OfferWrapper isAuth={isAuth} />
           <Map />
           <div className="container">
             <section className="near-places places">

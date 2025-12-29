@@ -21,14 +21,20 @@ interface IProps<T = IOffer[]> {
 }
 
 /** Алиасы универсального интерфейса */
-export type IOfferProps = IProps;
 export type IMainProps = IProps;
 export type ISearchOffersProps = IProps;
 export type IFavoritesProps = IProps;
 export type IFavoritesListProps = IProps;
+export type IOfferProps = IProps & {
+  isAuth: boolean;
+};
 export type IAppProps = IProps & {
   authorizationStatus: AuthorizationStatus;
 };
+
+export interface IOfferWrapperProps {
+  isAuth: boolean;
+}
 
 export interface IPlaceCardProps {
   offer: IOffer;
