@@ -10,6 +10,7 @@ export default function OffersContent({ offers }: IOffersContentProps): JSX.Elem
   const [activeOffer, setActiveOffer] = useState<number | null>(null);
   void activeOffer; // Временная мера, чтобы не ругался Eslint.
 
+  /** При наведении на offer обновляется state компонента */
   const handleMouseEnter = (id: number) => {
     setActiveOffer(id);
   };

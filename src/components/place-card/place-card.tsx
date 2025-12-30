@@ -5,6 +5,7 @@ import { Link, generatePath } from 'react-router-dom';
 export default function PlaceCard({ offer, onMouseEnter }: IPlaceCardProps): JSX.Element {
   const { id, price, previewImage, title, type, rating, isFavorite, isPremium } = offer;
   const ratingWidth = rating ? `${Math.round((100 / 5) * rating)}%` : '0%';
+  const offerPath = generatePath(AppRoute.offer, { id: String(id) });
 
   return (
     <article className="cities__card place-card" onMouseEnter={onMouseEnter}>
@@ -14,7 +15,7 @@ export default function PlaceCard({ offer, onMouseEnter }: IPlaceCardProps): JSX
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper" >
-        <Link to={generatePath(AppRoute.offer, { id: String(id) })}>
+        <Link to={offerPath}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div >
@@ -38,7 +39,7 @@ export default function PlaceCard({ offer, onMouseEnter }: IPlaceCardProps): JSX
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">{title}</Link>
+          <Link to={offerPath}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div >
