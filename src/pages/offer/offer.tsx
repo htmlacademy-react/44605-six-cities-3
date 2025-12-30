@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types';
 import PreviewPhoto from './components/preview-photo/preview-photo';
 import OfferWrapper from './components/offer-wrapper/offer-wrapper';
 import Map from './components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
+import { IOfferProps } from '../../types.props';
 
-export default function Offer({ offers }: Offers): JSX.Element {
+export default function Offer({ offers, isAuth }: IOfferProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -14,7 +14,7 @@ export default function Offer({ offers }: Offers): JSX.Element {
       <main className="page__main page__main--offer">
         <section className="offer">
           <PreviewPhoto />
-          <OfferWrapper />
+          <OfferWrapper isAuth={isAuth} />
           <Map />
           <div className="container">
             <section className="near-places places">

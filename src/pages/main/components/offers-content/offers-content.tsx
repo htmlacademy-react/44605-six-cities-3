@@ -2,9 +2,19 @@ import Map from '../map/map';
 import PlaceCard from '../../../../components/place-card/place-card';
 import SearchInfo from '../search-info/search-info';
 import SortingForm from '../sorting-form/sorting-form';
-import { Offers } from '../../../../types';
+import { IOffersContentProps } from '../../../../types.props';
+import { useState } from 'react';
 
-export default function OffersContent({ offers }: Offers): JSX.Element {
+
+export default function OffersContent({ offers }: IOffersContentProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<number | null>(null);
+  void activeOffer; // Временная мера, чтобы не ругался Eslint.
+
+  /** При наведении на offer обновляется state компонента */
+  const handleMouseEnter = (id: number) => {
+    setActiveOffer(id);
+  };
+
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -12,7 +22,7 @@ export default function OffersContent({ offers }: Offers): JSX.Element {
         <SearchInfo />
         <SortingForm />
         <div className="cities__places-list places__list tabs__content">
-          {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} />)}
+          {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={() => handleMouseEnter(offer.id)} />)}
         </div>
       </section>
       <div className="cities__right-section">
