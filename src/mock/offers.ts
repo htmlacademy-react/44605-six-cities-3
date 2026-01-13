@@ -33,14 +33,14 @@ export const Offers: IOffer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 8,
       }
     },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     isFavorite: true,
@@ -54,16 +54,16 @@ export const Offers: IOffer[] = [
     type: 'Hotel',
     price: 191,
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
-        zoom: 13,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 8,
       }
     },
     location: {
-      latitude: 48.85661,
-      longitude: 2.351499,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
       zoom: 13,
     },
     isFavorite: true,
@@ -77,16 +77,16 @@ export const Offers: IOffer[] = [
     type: 'House',
     price: 820,
     city: {
-      name: 'Cologne',
+      name: 'Amsterdam',
       location: {
-        latitude: 50.938361,
-        longitude: 50.938361,
-        zoom: 13,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 8,
       }
     },
     location: {
-      latitude: 50.938361,
-      longitude: 50.938361,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 16,
     },
     isFavorite: false,
@@ -100,16 +100,16 @@ export const Offers: IOffer[] = [
     type: 'apartment',
     price: 350,
     city: {
-      name: 'Brussels',
+      name: 'Amsterdam',
       location: {
-        latitude: 50.846557,
-        longitude: 4.351697,
-        zoom: 13,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 8,
       }
     },
     location: {
-      latitude: 50.846557,
-      longitude: 4.351697,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 13,
     },
     isFavorite: false,

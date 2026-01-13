@@ -18,3 +18,9 @@ export enum AuthorizationStatus {
 
 /** Временная функция для получения статуса авторизации */
 export const authorizationStatus = () => AuthorizationStatus.Auth;
+
+export const URL_MARKER_DEFAULT =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+
+export const URL_MARKER_CURRENT =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';

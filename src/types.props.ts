@@ -32,6 +32,9 @@ export type IOfferProps = IProps & {
 export type IAppProps = IProps & {
   authorizationStatus: AuthorizationStatus;
 };
+export type IMapProps = IProps & {
+  selectedOffer: IOffer | null;
+};
 
 export interface IOfferWrapperProps {
   isAuth: boolean;

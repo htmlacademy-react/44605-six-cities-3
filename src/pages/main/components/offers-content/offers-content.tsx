@@ -4,15 +4,15 @@ import SearchInfo from '../search-info/search-info';
 import SortingForm from '../sorting-form/sorting-form';
 import { IOffersContentProps } from '../../../../types.props';
 import { useState } from 'react';
+import { IOffer } from '../../../../mock/offers';
 
 
 export default function OffersContent({ offers }: IOffersContentProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<number | null>(null);
-  void activeOffer; // Временная мера, чтобы не ругался Eslint.
+  const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
 
   /** При наведении на offer обновляется state компонента */
-  const handleMouseEnter = (id: number) => {
-    setActiveOffer(id);
+  const handleMouseEnter = (offer: IOffer) => {
+    setSelectedOffer(offer);
   };
 
   return (
@@ -22,11 +22,11 @@ export default function OffersContent({ offers }: IOffersContentProps): JSX.Elem
         <SearchInfo />
         <SortingForm />
         <div className="cities__places-list places__list tabs__content">
-          {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={() => handleMouseEnter(offer.id)} />)}
+          {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={() => handleMouseEnter(offer)} />)}
         </div>
       </section>
       <div className="cities__right-section">
-        < Map />
+        <Map selectedOffer={selectedOffer} offers={offers} />
       </div>
     </div>
   );
