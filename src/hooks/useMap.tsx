@@ -11,10 +11,10 @@ export default function useMap(
   const isRenderMap = useRef<boolean>(false);
 
   useEffect(() => {
-    if (mapRef.current && !isRenderMap.current) {
+    if (mapRef.current && !isRenderMap.current && city) {
       const instanceMap = leaflet
         .map(mapRef.current)
-        .setView([city?.lat || 0, city?.lng || 0], city?.zoom || 0);
+        .setView([city.lat, city.lng], city.zoom);
       const layer = leaflet
         .tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
           maxZoom: 19,
@@ -26,6 +26,20 @@ export default function useMap(
       isRenderMap.current = true;
     }
   }, [mapRef, city]);
+
+  useEffect(() => () => {
+    if (map) {
+      map.remove();
+      isRenderMap.current = false;
+      setMap(null);
+    }
+  }, [map]);
+
+  useEffect(() => {
+    if (map && city) {
+      map.setView([city.lat, city.lng], city.zoom);
+    }
+  }, [map, city]);
 
   return map;
 }

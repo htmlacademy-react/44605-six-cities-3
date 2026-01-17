@@ -3,50 +3,50 @@ export type City = {
   lat: number;
   lng: number;
   zoom: number;
-  checked: boolean;
+  selected: boolean;
 }
 
 export const Cities: City[] = [
   {
-    title: 'Amsterdam',
-    lat: 52.33,
-    lng: 4.90,
-    zoom: 11,
-    checked: true
-  },
-  {
     title: 'Paris',
-    lat: 48.51,
-    lng: 2.21,
-    zoom: 10,
-    checked: false
+    lat: 48.851,
+    lng: 2.331,
+    zoom: 12,
+    selected: false
   },
   {
     title: 'Cologne',
-    lat: 50.55,
-    lng: 6.57,
-    zoom: 10,
-    checked: false
+    lat: 50.95,
+    lng: 6.947,
+    zoom: 13,
+    selected: false
   },
   {
     title: 'Brussels',
-    lat: 50.50,
-    lng: 4.21,
-    zoom: 10,
-    checked: false
+    lat: 50.83,
+    lng: 4.35,
+    zoom: 12,
+    selected: false
+  },
+  {
+    title: 'Amsterdam',
+    lat: 52.33,
+    lng: 4.90,
+    zoom: 12,
+    selected: true
   },
   {
     title: 'Hamburg',
-    lat: 53.33,
-    lng: 10.00,
-    zoom: 10,
-    checked: false
+    lat: 53.63,
+    lng: 9.92,
+    zoom: 11,
+    selected: false
   },
   {
     title: 'Dusseldorf',
-    lat: 51.13,
-    lng: 6.47,
-    zoom: 10,
-    checked: false
+    lat: 51.25,
+    lng: 6.77,
+    zoom: 13,
+    selected: false
   }
 ];

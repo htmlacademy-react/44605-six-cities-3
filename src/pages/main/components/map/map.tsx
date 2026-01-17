@@ -8,8 +8,8 @@ import { City } from '../../../../mock/cities';
 
 type MapProps = {
   offers: IOffer[];
-  cities: City[];
   selectedOffer: IOffer | null;
+  activeCity: City;
 }
 
 const defaultIcon = leaflet.icon({
@@ -24,10 +24,10 @@ const customIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export default function Map({ offers, cities, selectedOffer }: MapProps): JSX.Element {
-  const selectedCity = cities.find((city) => city.checked); // Определяю город, который выбран пользователем / по-умолчанию
-  const mapRef = useRef<HTMLElement | null>(null); // Определяю контейнер для будущей карты
-  const map = useMap(mapRef, selectedCity);
+export default function Map({ offers, selectedOffer, activeCity }: MapProps): JSX.Element {
+
+  const mapRef = useRef<HTMLElement | null>(null);
+  const map = useMap(mapRef, activeCity);
 
   useEffect(() => {
     if (map) {
