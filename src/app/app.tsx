@@ -30,7 +30,7 @@ export default function App({ offers, cities, isAuth }: IAppProps): JSX.Element 
             />
 
             <Route path={AppRoute.offer} element={
-              <OfferPage offers={offers} isAuth={isAuth} />
+              <OfferPage offers={offers} cities={cities} isAuth={isAuth} />
             }
             />
 

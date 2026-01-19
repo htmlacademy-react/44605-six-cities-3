@@ -19,6 +19,7 @@ export interface IMainPageProps {
 
 export interface IOfferPageProps {
   offers: IOffer[];
+  cities: ICity[];
   isAuth: boolean;
 }
 
@@ -51,7 +52,9 @@ export interface ICitiesMapProps {
 }
 
 export interface IOfferMapProps {
-  activeAdditionalOffer: IOffer | null;
+  selectedOffer: IOffer | null;
+  presentedCity?: ICity;
+  randomOffers?: IOffer[];
 }
 
 export interface IEmptyProps {

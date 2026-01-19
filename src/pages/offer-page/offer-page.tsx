@@ -10,38 +10,47 @@ import PlaceCard from '../../components/place-card/place-card';
 
 // Подключение типизации
 import { IOfferPageProps } from '../../types/types.props';
-import { IOffer } from '../../types/types';
+import { ICity, IOffer } from '../../types/types';
 import { useParams } from 'react-router-dom';
 
-const getRandomOffers = (placements: IOffer[], count: number): IOffer[] => {
+
+const getRandomOffers = (placements: IOffer[], count: number, city: ICity): IOffer[] => {
   if (placements.length <= count) {
     return [...placements];
   }
-
+  const filteredOffers = placements.filter((offer) => offer.city.name === city.title);
   const selectedIndices = new Set<number>();
   const result: IOffer[] = [];
 
   while (selectedIndices.size < count) {
-    const randomIndex = Math.floor(Math.random() * placements.length);
-
+    const randomIndex = Math.floor(Math.random() * filteredOffers.length);
     if (!selectedIndices.has(randomIndex)) {
       selectedIndices.add(randomIndex);
-      result.push(placements[randomIndex]);
+      result.push(filteredOffers[randomIndex]);
     }
   }
   return result;
 };
 
 
-export default function OfferPage({ offers, isAuth }: IOfferPageProps): JSX.Element {
-  const [activeAdditionalOffer, setActiveAdditionalOffer] = useState<IOffer | null>(null);
+const getCityById = (offers: IOffer[], cities: ICity[], id: string) => {
+  const offerById = offers.find((offer) => String(offer.id) === id);
+  const cityName = offerById?.city.name;
+  const cityById = cities.find((city) => city.title === cityName);
+  return [cityById, offerById];
+};
+
+
+export default function OfferPage({ offers, cities, isAuth }: IOfferPageProps): JSX.Element {
   const { id } = useParams();
+  const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
 
-  const randomOffers = useMemo(() => getRandomOffers(offers, 3), [offers]);
-  const currentOffer = offers.find((offer) => String(offer.id) === id);
+  const [presentedCity, currentOffer] = getCityById(offers, cities, id);
 
-  const handleChangeAdditionalOffer = (offer: IOffer) => {
-    setActiveAdditionalOffer(offer);
+  const randomOffers = useMemo(() => getRandomOffers(offers, 3, presentedCity), [offers, presentedCity]);
+
+  const handleSelectOffer = (offer: IOffer) => {
+    setSelectedOffer(offer);
   };
 
 
@@ -58,14 +67,14 @@ export default function OfferPage({ offers, isAuth }: IOfferPageProps): JSX.Elem
 
           <OfferWrapper isAuth={isAuth} currentOffer={currentOffer} />
 
-          <OfferMap activeAdditionalOffer={activeAdditionalOffer} />
+          <OfferMap selectedOffer={selectedOffer} randomOffers={randomOffers} presentedCity={presentedCity} />
 
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
                 {
-                  randomOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={() => handleChangeAdditionalOffer(offer)} />)
+                  randomOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={() => handleSelectOffer(offer)} />)
                 }
               </div>
             </section>
