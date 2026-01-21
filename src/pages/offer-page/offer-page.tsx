@@ -45,9 +45,9 @@ export default function OfferPage({ offers, cities, isAuth }: IOfferPageProps): 
   const { id } = useParams();
   const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
 
-  const [presentedCity, currentOffer] = getCityById(offers, cities, id);
+  const [presentedCity, currentOffer] = getCityById(offers, cities, id as string);
 
-  const randomOffers = useMemo(() => getRandomOffers(offers, 3, presentedCity), [offers, presentedCity]);
+  const randomOffers = useMemo(() => getRandomOffers(offers, 3, presentedCity as ICity), [offers, presentedCity]);
 
   const handleSelectOffer = (offer: IOffer) => {
     setSelectedOffer(offer);
@@ -65,9 +65,9 @@ export default function OfferPage({ offers, cities, isAuth }: IOfferPageProps): 
 
           <OfferImages />
 
-          <OfferWrapper isAuth={isAuth} currentOffer={currentOffer} />
+          <OfferWrapper isAuth={isAuth} currentOffer={currentOffer as IOffer} />
 
-          <OfferMap selectedOffer={selectedOffer} randomOffers={randomOffers} presentedCity={presentedCity} />
+          <OfferMap selectedOffer={selectedOffer} randomOffers={randomOffers} presentedCity={presentedCity as ICity} />
 
           <div className="container">
             <section className="near-places places">
