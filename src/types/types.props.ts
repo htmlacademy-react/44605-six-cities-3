@@ -94,3 +94,7 @@ export interface IOfferReviewsProps {
 export interface IReviewListProps {
   reviews: IReview[];
 }
+
+export interface IReviewItemProps {
+  review: IReview;
+}
