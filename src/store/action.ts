@@ -4,12 +4,12 @@ import { ICity, IOffer } from '../types/types';
 
 // Описание действий
 /** Действие для изменения города */
-export const changeCity = createAction('changeCity', (city: ICity) => ({
+export const changeCityAction = createAction('changeCity', (city: ICity) => ({
   payload: city,
 }));
 
 /** Действие для заполнения списка предложений */
-export const fillingOffers = createAction('fillingOffers', (offers: IOffer[]) => ({
+export const fillingOffersAction = createAction('fillingOffers', (offers: IOffer[]) => ({
   payload: offers,
 }));
 

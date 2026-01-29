@@ -1,22 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Offers } from '../mock/offers';
 import { Cities } from '../const/cities';
-import { changeCity, fillingOffers } from './action';
+import { changeCityAction, fillingOffersAction } from './action';
 
 // Определение начального состояния приложения
 const initialState = {
-  city: Cities[0].title,
+  city: Cities[0],
   offers: Offers,
 };
 
 const reducer = createReducer(initialState,
   (builder) => {
     builder
-      .addCase(changeCity,
+      .addCase(changeCityAction,
         (state, action) => {
-          state.city = action.payload.title;
+          state.city = action.payload;
         })
-      .addCase(fillingOffers,
+      .addCase(fillingOffersAction,
         (state, action) => {
           state.offers = action.payload;
         });
