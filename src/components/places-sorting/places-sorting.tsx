@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useAppSelector } from '../../hooks/useStore';
 import { ISortingProps } from '../../types/types.props';
 
-export default function PlacesSorting({ handleSorting }: ISortingProps): JSX.Element {
+export default function PlacesSorting({ handleChangeSorting }: ISortingProps): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
   const sortingValue = useAppSelector((state) => state.sorting);
   const [showSortingOptions, setShowSortingOptions] = useState(false);
@@ -32,7 +32,7 @@ export default function PlacesSorting({ handleSorting }: ISortingProps): JSX.Ele
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      {showSortingOptions && (<SortingOption handleSorting={handleSorting} />)}
+      {showSortingOptions && (<SortingOption handleChangeSorting={handleChangeSorting} />)}
     </form >
   );
 }

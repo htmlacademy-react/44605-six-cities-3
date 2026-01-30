@@ -1,6 +1,6 @@
 // Подключение вспомогательных файлов
 import { useState } from 'react';
-import { useAppDispatch } from '../../hooks/useStore';
+import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
 import { changeSortingAction } from '../../store/action';
 // Подключение компонентов
 import PlacesFound from '../places-found/places-found';
@@ -10,20 +10,37 @@ import PlacesSorting from '../places-sorting/places-sorting';
 // Подключение типизации
 import { IOffersContainerProps } from '../../types/types.props';
 import { IOffer } from '../../types/types';
+import { SortingType } from '../../types/types';
 
+const getSortedOffers = (offers: IOffer[], currentSorting: SortingType) => {
+  const cases = [...offers];
+  cases.sort((a, b) => {
+    switch (currentSorting) {
+      case 'Popular':
+        return 0;
+      case 'Price: low to high':
+        return a.price - b.price;
+      case 'Price: high to low':
+        return b.price - a.price;
+      case 'Top rated first':
+        return b.rating - a.rating;
+    }
+  });
+  return cases;
+};
 
 export default function OffersContainer({ offers, activeCity }: IOffersContainerProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
   const dispatch = useAppDispatch();
+  const currentSorting = useAppSelector((state) => state.sorting);
   const filteredOffers = offers.filter((offer) => offer.city.name === activeCity.title); //Получаем список предложений по активному городу
+  const sortedOffers: IOffer[] = getSortedOffers(filteredOffers, currentSorting as SortingType);
 
-  // При наведении на offer обновляется state компонента для выделения маркера на карте
   const handleMouseEnter = (offer: IOffer) => {
     setSelectedOffer(offer);
   };
 
-  // Изменяю значение сортировки в глобальном состоянии
-  const handleSorting = (sorting: 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first') => {
+  const handleChangeSorting = (sorting: SortingType) => {
     dispatch(changeSortingAction(sorting));
   };
 
@@ -32,15 +49,11 @@ export default function OffersContainer({ offers, activeCity }: IOffersContainer
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-
         <PlacesFound filteredOffers={filteredOffers} />
-        <PlacesSorting handleSorting={handleSorting} />
-
+        <PlacesSorting handleChangeSorting={handleChangeSorting} />
         <div className="cities__places-list places__list tabs__content">
-          {
-            filteredOffers.map((offer) =>
-              <PlaceCard key={offer.id} offer={offer} onMouseEnter={() => handleMouseEnter(offer)} />)
-          }
+          {sortedOffers.map((offer) =>
+            <PlaceCard key={offer.id} offer={offer} onMouseEnter={() => handleMouseEnter(offer)} />)}
         </div>
       </section>
       <div className="cities__right-section">

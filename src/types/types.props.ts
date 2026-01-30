@@ -1,4 +1,4 @@
-import { IOffer, ICity, IReview } from './types';
+import { IOffer, ICity, IReview, SortingType } from './types';
 
 
 // Типизация для pages
@@ -95,5 +95,5 @@ export interface IReviewItemProps {
 }
 
 export interface ISortingProps {
-  handleSorting: (sorting: 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first') => void;
+  handleChangeSorting: (sorting: SortingType) => void;
 }
