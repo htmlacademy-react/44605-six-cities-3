@@ -1,4 +1,4 @@
-import { IOffer, ICity, IReview } from './types';
+import { IOffer, ICity, IReview, SortingType } from './types';
 
 
 // Типизация для pages
@@ -13,10 +13,6 @@ export interface IFavoritePageProps {
   offers: IOffer[];
 }
 
-export interface IMainPageProps {
-  offers: IOffer[];
-  cities: ICity[];
-}
 
 export interface IOfferPageProps {
   offers: IOffer[];
@@ -28,7 +24,6 @@ export interface IOfferPageProps {
 
 // Типизация для components
 export interface ICityNavigationProps {
-  cities: ICity[];
   activeCity: ICity;
   onChangeCity: (city: ICity) => void;
 }
@@ -97,4 +92,8 @@ export interface IReviewListProps {
 
 export interface IReviewItemProps {
   review: IReview;
+}
+
+export interface ISortingProps {
+  handleChangeSorting: (sorting: SortingType) => void;
 }
