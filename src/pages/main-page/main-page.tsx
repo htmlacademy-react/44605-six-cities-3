@@ -1,6 +1,7 @@
 // Подключение вспомогательных файлов
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
+import { changeCityAction } from '../../store/action';
 
 // Подключение компонентов
 import CityNavigation from '../../components/city-navigation/city-navigation';
@@ -13,12 +14,12 @@ import { ICity } from '../../types/types';
 
 
 export default function MainPage({ offers, cities }: IMainPageProps): JSX.Element {
-  const [activeCity, setActiveCity] = useState(cities[0]);
+  const activeCity = useAppSelector((state) => state.city); // Получаем активный город из состояния
+  const dispatch = useAppDispatch(); // Получаем функцию dispatch для отправки действий в хранилище
 
   const handleChangeCity = (newCity: ICity) => {
-    setActiveCity(newCity);
+    dispatch(changeCityAction(newCity));
   };
-
 
   return (
     <>
