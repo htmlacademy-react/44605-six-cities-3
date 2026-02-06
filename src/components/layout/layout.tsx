@@ -2,9 +2,14 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import { getLayoutState } from './utils';
 import { isAuth } from '../../const/const';
+import { useAppSelector } from '../../hooks/useStore';
 
 export default function Layout(): JSX.Element {
   const { pathname } = useLocation();
+  const offers = useAppSelector((state) => state.offers);
+  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
+  const countFavoritesOffers = favoritesOffers.length;
+
   const { linkClassName, divClassName, shouldRenderUser, shouldRenderFooter } = getLayoutState(pathname as AppRoute);
 
   return (
@@ -30,7 +35,7 @@ export default function Layout(): JSX.Element {
                           <div className="header__avatar-wrapper user__avatar-wrapper">
                           </div>
                           <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                          <span className="header__favorite-count">3</span>
+                          <span className="header__favorite-count">{countFavoritesOffers}</span>
                         </Link>
                       </li>
                       <li className="header__nav-item">

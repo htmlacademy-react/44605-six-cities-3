@@ -37,10 +37,7 @@ export default function App(): JSX.Element {
             }
             />
           </Route>
-          <Route path='*' element={
-            <ErrorPage />
-          }
-          />
+          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider >

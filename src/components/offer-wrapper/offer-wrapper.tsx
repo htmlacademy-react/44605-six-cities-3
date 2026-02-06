@@ -2,7 +2,7 @@
 import OfferReviews from '../offer-reviews/offer-reviews';
 import OwnerDescription from '../owner-description/owner-description';
 import { IOfferWrapperProps } from '../../types/types.props';
-import { offersOption } from '../../const/const';
+import { OFFERS_OPTION } from '../../const/const';
 
 
 export default function OfferWrapper({ currentOffer }: IOfferWrapperProps): JSX.Element {
@@ -62,7 +62,7 @@ export default function OfferWrapper({ currentOffer }: IOfferWrapperProps): JSX.
           <h2 className="offer__inside-title">What&apos;s inside</h2>
           <ul className="offer__inside-list">
             {
-              offersOption.map((option) => (
+              OFFERS_OPTION.map((option) => (
                 <li className="offer__inside-item" key={option}>
                   {option}
                 </li>
