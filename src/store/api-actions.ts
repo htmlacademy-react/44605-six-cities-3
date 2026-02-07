@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const/const';
 import { AppDispatch, IOffer, State, AuthData, UserData } from '../types/types';
-import { loadingOffersAction, requireAuthorizationAction, setErrorAction } from './action';
+import { loadingOffersAction, requireAuthorizationAction, setErrorAction } from './actions';
 import { AxiosInstance } from 'axios';
 import { saveToken } from '../services/token';
 import { store } from './store';
@@ -13,6 +13,7 @@ const enum AsyncActionsType {
   ClearError = 'clearError',
 }
 
+/** Ассинхронное действие для запроса на сервер для получения списка всех предложений */
 export const fetchOffersAction = createAsyncThunk<void, void, { dispatch: AppDispatch; state: State; extra: AxiosInstance }>(
   AsyncActionsType.FetchOffers,
   async (_arg, { dispatch, extra: api }) => {
@@ -21,6 +22,7 @@ export const fetchOffersAction = createAsyncThunk<void, void, { dispatch: AppDis
   }
 );
 
+/** Ассинхронное действие для проверки статуса авторизации */
 export const checkAuthLoginAction = createAsyncThunk<void, void, { dispatch: AppDispatch; state: State; extra: AxiosInstance }>(
   AsyncActionsType.CheckAuthLogin,
   async (_arg, { dispatch, extra: api }) => {
@@ -33,6 +35,7 @@ export const checkAuthLoginAction = createAsyncThunk<void, void, { dispatch: App
   }
 );
 
+/** Ассинхронное действие для отправки данных авторизации на сервер */
 export const loginAction = createAsyncThunk<void, AuthData, { dispatch: AppDispatch; state: State; extra: AxiosInstance }>(
   AsyncActionsType.Login,
   async ({ email, password }, { dispatch, extra: api }) => {
@@ -42,6 +45,7 @@ export const loginAction = createAsyncThunk<void, AuthData, { dispatch: AppDispa
     dispatch(requireAuthorizationAction(AuthorizationStatus.AUTH));
   });
 
+/** Ассинхронное действие для удаления текста об ошибке */
 export const clearErrorAction = createAsyncThunk(
   AsyncActionsType.ClearError,
   () => {

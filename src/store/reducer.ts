@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 // import { Offers } from '../mock/offers';
 import { Cities } from '../const/cities';
-import { changeCityAction, changeSortingAction, loadingOffersAction, requireAuthorizationAction, loadingReviewsAction, setErrorAction } from './action';
+import { changeCityAction, changeSortingAction, loadingOffersAction, requireAuthorizationAction, loadingReviewsAction, setErrorAction } from './actions';
 import { AuthorizationStatus } from '../const/const';
 import { IOffer } from '../types/types';
 import { ICity, SortingType, IReview } from '../types/types';
@@ -13,7 +13,7 @@ type InitialState = {
   sorting: SortingType;
   isAuth: AuthorizationStatus;
   reviews: IReview[];
-  error: string | null;
+  errorMessage: string | null;
 }
 
 const initialState: InitialState = {
@@ -22,7 +22,7 @@ const initialState: InitialState = {
   sorting: 'Popular',
   isAuth: AuthorizationStatus.UNKNOWN,
   reviews: [],
-  error: null,
+  errorMessage: null,
 };
 
 const reducer = createReducer(initialState,
@@ -52,7 +52,7 @@ const reducer = createReducer(initialState,
       )
       .addCase(setErrorAction,
         (state, action) => {
-          state.error = action.payload;
+          state.errorMessage = action.payload;
         }
       );
   }

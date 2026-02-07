@@ -1,7 +1,7 @@
 // Подключение вспомогательных файлов
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { changeCityAction } from '../../store/action';
+import { changeCityAction } from '../../store/actions';
 
 // Подключение компонентов
 import CityNavigation from '../../components/city-navigation/city-navigation';

@@ -1,6 +1,6 @@
 // Подключение вспомогательных функций
 import { Link } from 'react-router-dom';
-import { changeCityAction } from '../../store/action';
+import { changeCityAction } from '../../store/actions';
 
 // Подключение компонентов
 import PlaceCardMini from '../place-card-mini/place-card-mini';

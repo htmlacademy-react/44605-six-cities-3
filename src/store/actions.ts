@@ -33,10 +33,12 @@ export const loadingOffersAction = createAction(ActionType.LoadingOffers, (offer
   payload: offers,
 }));
 
+/** Действие для заполнения списка отзывов */
 export const loadingReviewsAction = createAction(ActionType.LoadingReviews, (reviews: IReview[]) => ({
   payload: reviews,
 }));
 
+/** Действие для изменения статуса об ошибке */
 export const setErrorAction = createAction(ActionType.SetError, (error: string | null) => ({
   payload: error,
 }));
