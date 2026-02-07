@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 // import { Offers } from '../mock/offers';
 import { Cities } from '../const/cities';
-import { changeCityAction, changeSortingAction, loadingOffersAction, requireAuthorizationAction, loadingReviewsAction, setErrorAction } from './actions';
+import { changeCityAction, changeSortingAction, loadingOffersAction, requireAuthorizationAction, loadingReviewsAction, setErrorAction, setIsFetchingAction } from './actions';
 import { AuthorizationStatus } from '../const/const';
 import { IOffer } from '../types/types';
 import { ICity, SortingType, IReview } from '../types/types';
@@ -10,6 +10,7 @@ import { ICity, SortingType, IReview } from '../types/types';
 type InitialState = {
   currentCity: ICity;
   offers: IOffer[];
+  isFetching: boolean;
   sorting: SortingType;
   isAuth: AuthorizationStatus;
   reviews: IReview[];
@@ -19,6 +20,7 @@ type InitialState = {
 const initialState: InitialState = {
   currentCity: Cities[0],
   offers: [],
+  isFetching: true,
   sorting: 'Popular',
   isAuth: AuthorizationStatus.UNKNOWN,
   reviews: [],
@@ -53,6 +55,11 @@ const reducer = createReducer(initialState,
       .addCase(setErrorAction,
         (state, action) => {
           state.errorMessage = action.payload;
+        }
+      )
+      .addCase(setIsFetchingAction,
+        (state, action) => {
+          state.isFetching = action.payload;
         }
       );
   }

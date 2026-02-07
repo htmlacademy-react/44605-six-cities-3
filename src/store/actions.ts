@@ -10,6 +10,7 @@ const enum ActionType {
   LoadingReviews = 'loadingReviews',
   RequireAuthorization = 'requireAuthorization',
   SetError = 'setError',
+  SetLoadingOffers = 'setLoadingOffers',
 }
 
 // Описание действий
@@ -41,4 +42,8 @@ export const loadingReviewsAction = createAction(ActionType.LoadingReviews, (rev
 /** Действие для изменения статуса об ошибке */
 export const setErrorAction = createAction(ActionType.SetError, (error: string | null) => ({
   payload: error,
+}));
+
+export const setIsFetchingAction = createAction(ActionType.SetLoadingOffers, (isFetching: boolean) => ({
+  payload: isFetching,
 }));
