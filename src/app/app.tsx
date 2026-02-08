@@ -25,13 +25,13 @@ export default function App(): JSX.Element {
             <Route index element={<MainPage />} />
             <Route path={AppRoute.OFFER} element={<OfferPage />} />
             <Route path={AppRoute.LOGIN} element={
-              <PrivateRoute isAuth login>
+              <PrivateRoute isLoginPage >
                 <LoginPage />
               </PrivateRoute>
             }
             />
             <Route path={AppRoute.FAVORITES} element={
-              <PrivateRoute isAuth>
+              <PrivateRoute >
                 <FavoritesPage />
               </PrivateRoute>
             }

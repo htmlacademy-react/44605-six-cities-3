@@ -1,16 +1,33 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { AppRoute } from '../../const/const';
+import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { getLayoutState } from './utils';
-import { isAuth } from '../../const/const';
-import { useAppSelector } from '../../hooks/useStore';
+import { useAppSelector, useAppDispatch } from '../../hooks/useStore';
+import { logoutAction } from '../../store/async-actions';
+import { useNavigate } from 'react-router-dom';
+import Spinner from '../spinner/spinner';
 
 export default function Layout(): JSX.Element {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const offers = useAppSelector((state) => state.offers);
+  const isAuth = useAppSelector((state) => state.isAuth);
+  const isFetching = useAppSelector((state) => state.isFetching);
+  const userData = useAppSelector((state) => state.userData);
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
   const countFavoritesOffers = favoritesOffers.length;
-
+  const isLoggedIn = isAuth === AuthorizationStatus.AUTH;
   const { linkClassName, divClassName, shouldRenderUser, shouldRenderFooter } = getLayoutState(pathname as AppRoute);
+
+  if (isFetching) {
+    return <Spinner />;
+  }
+
+  const handleLogout = () => {
+    dispatch(logoutAction()).then(() => {
+      navigate(AppRoute.LOGIN);
+    });
+  };
 
   return (
     <div className={`page ${divClassName}`}>
@@ -28,19 +45,19 @@ export default function Layout(): JSX.Element {
               <nav className="header__nav">
                 <ul className="header__nav-list">
 
-                  {isAuth() ?
+                  {isLoggedIn ?
                     <>
                       <li className="header__nav-item user">
                         <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
                           <div className="header__avatar-wrapper user__avatar-wrapper">
                           </div>
-                          <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                          <span className="header__user-name user__name">{userData?.email}</span>
                           <span className="header__favorite-count">{countFavoritesOffers}</span>
                         </Link>
                       </li>
                       <li className="header__nav-item">
                         <Link to='#' className="header__nav-link" >
-                          <span className="header__signout">Sign out</span>
+                          <span className="header__signout" onClick={handleLogout}>Sign out</span>
                         </Link>
                       </li>
                     </>

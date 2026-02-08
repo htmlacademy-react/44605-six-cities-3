@@ -1,5 +1,5 @@
 // Подключение вспомогательных файлов
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // Подключение компонентов
@@ -10,46 +10,57 @@ import PlaceCard from '../../components/place-card/place-card';
 import { ICity, IOffer } from '../../types/types';
 import { useParams } from 'react-router-dom';
 import { Cities } from '../../const/cities';
+import { fetchOfferIdActions } from '../../store/async-actions';
 import { useAppSelector } from '../../hooks/useStore';
+import { useAppDispatch } from '../../hooks/useStore';
 
 
-const getRandomOffers = (placements: IOffer[], count: number, city: ICity): IOffer[] => {
-  if (placements.length <= count) {
-    return [...placements];
-  }
-  const filteredOffers = placements.filter((offer) => offer.city.name === city.title);
-  const selectedIndices = new Set<number>();
-  const result: IOffer[] = [];
+// const getRandomOffers = (placements: IOffer[], count: number, city: ICity): IOffer[] => {
+//   if (placements.length <= count) {
+//     return [...placements];
+//   }
+//   const filteredOffers = placements.filter((offer) => offer.city.name === city.title);
+//   const selectedIndices = new Set<number>();
+//   const result: IOffer[] = [];
 
-  while (selectedIndices.size < count) {
-    const randomIndex = Math.floor(Math.random() * filteredOffers.length);
-    if (!selectedIndices.has(randomIndex)) {
-      selectedIndices.add(randomIndex);
-      result.push(filteredOffers[randomIndex]);
-    }
-  }
-  return result;
-};
+//   while (selectedIndices.size < count) {
+//     const randomIndex = Math.floor(Math.random() * filteredOffers.length);
+//     if (!selectedIndices.has(randomIndex)) {
+//       selectedIndices.add(randomIndex);
+//       result.push(filteredOffers[randomIndex]);
+//     }
+//   }
+//   return result;
+// };
 
 
-const getCityById = (offers: IOffer[], id: string) => {
-  const offerById = offers.find((offer) => String(offer.id) === id);
-  const cityName = offerById?.city.name;
-  const cityById = Cities.find((city) => city.title === cityName);
-  return [cityById, offerById];
-};
+// const getCityById = (offers: IOffer[], id: string) => {
+//   const offerById = offers.find((offer) => String(offer.id) === id);
+//   const cityName = offerById?.city.name;
+//   const cityById = Cities.find((city) => city.title === cityName);
+//   return [cityById, offerById];
+// };
 
 
 export default function OfferPage(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  // const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
-  const [presentedCity, currentOffer] = getCityById(offers, id as string);
-  const randomOffers = useMemo(() => getRandomOffers(offers, 3, presentedCity as ICity), [offers, presentedCity]);
-  const handleSelectOffer = (offer: IOffer) => {
-    setSelectedOffer(offer);
-  };
 
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferIdActions({ id }));
+    }
+
+  }, [id]);
+  // const offers = useAppSelector((state) => state.offers);
+  // const [presentedCity, currentOffer] = getCityById(offers, id as string);
+  // const randomOffers = useMemo(() => getRandomOffers(offers, 3, presentedCity as ICity), [offers, presentedCity]);
+
+  // const handleSelectOffer = (offer: IOffer) => {
+  //   setSelectedOffer(offer);
+  // };
 
   return (
     <>
@@ -60,14 +71,14 @@ export default function OfferPage(): JSX.Element {
         <section className="offer">
           <OfferImages />
           <OfferWrapper currentOffer={currentOffer as IOffer} />
-          <OfferMap selectedOffer={selectedOffer} randomOffers={randomOffers} presentedCity={presentedCity as ICity} />
+          {/* <OfferMap selectedOffer={selectedOffer} randomOffers={randomOffers} presentedCity={presentedCity as ICity} /> */}
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                {
+                {/* {
                   randomOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseEnter={() => handleSelectOffer(offer)} />)
-                }
+                } */}
               </div>
             </section>
           </div>

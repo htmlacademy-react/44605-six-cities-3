@@ -61,8 +61,7 @@ export interface IEmptyProps {
 
 export interface IPrivateRouteProps {
   children: JSX.Element;
-  isAuth: boolean;
-  login?: boolean;
+  isLoginPage?: boolean;
 }
 
 export interface IFavoritesListProps {

@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ICity, IOffer, IReview } from '../types/types';
+import { ICity, IOffer, IReview, UserData } from '../types/types';
 import { SortingType } from '../types/types';
 import { AuthorizationStatus } from '../const/const';
 
@@ -7,10 +7,11 @@ const enum ActionType {
   ChangeCity = 'changeCity',
   ChangeSorting = 'changeSorting',
   LoadingOffers = 'loadingOffers',
+  LoadingCurrentOffer = 'loadingCurrentOfferAction',
   LoadingReviews = 'loadingReviews',
   RequireAuthorization = 'requireAuthorization',
-  SetError = 'setError',
-  SetLoadingOffers = 'setLoadingOffers',
+  SetIsFetching = 'setIsFetching',
+  SetUserData = 'setUserData',
 }
 
 // Описание действий
@@ -34,16 +35,19 @@ export const loadingOffersAction = createAction(ActionType.LoadingOffers, (offer
   payload: offers,
 }));
 
+export const loadingCurrentOfferAction = createAction(ActionType.LoadingCurrentOffer, (currentOffer: IOffer) => ({
+  payload: currentOffer
+}));
+
 /** Действие для заполнения списка отзывов */
 export const loadingReviewsAction = createAction(ActionType.LoadingReviews, (reviews: IReview[]) => ({
   payload: reviews,
 }));
 
-/** Действие для изменения статуса об ошибке */
-export const setErrorAction = createAction(ActionType.SetError, (error: string | null) => ({
-  payload: error,
+export const setIsFetchingAction = createAction(ActionType.SetIsFetching, (isFetching: boolean) => ({
+  payload: isFetching,
 }));
 
-export const setIsFetchingAction = createAction(ActionType.SetLoadingOffers, (isFetching: boolean) => ({
-  payload: isFetching,
+export const setUserDataAction = createAction(ActionType.SetUserData, (userData: UserData | null) => ({
+  payload: userData,
 }));

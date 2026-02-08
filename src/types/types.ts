@@ -12,7 +12,20 @@ export interface IOffer {
   isPremium: boolean;
   rating: number;
   previewImage: string;
+  description?: string;
+  images?: string[];
+  goods?: string[];
+  host?: host;
+  bedrooms?: number;
+  maxAdults?: number;
 }
+
+interface host {
+  isPro: boolean;
+  name: string;
+  avatarUrl: string;
+}
+
 
 interface cities {
   'name': string;
@@ -55,8 +68,14 @@ export type AuthData = {
   password: string;
 }
 
+export type OfferID = {
+  id: string;
+}
+
 export type UserData = {
-  id: number;
   email: string;
   token: string;
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
 }
