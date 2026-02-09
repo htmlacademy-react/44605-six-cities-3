@@ -1,5 +1,5 @@
 // Подключение вспомогательных файлов
-import { useState, useMemo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // Подключение компонентов
@@ -9,7 +9,7 @@ import OfferWrapper from '../../components/offer-wrapper/offer-wrapper';
 // import PlaceCard from '../../components/place-card/place-card';
 import { IOffer } from '../../types/types';
 import { useParams } from 'react-router-dom';
-import { fetchOfferIdActions } from '../../store/async-actions';
+import { fetchOfferIdActions, fetchReviewsAction } from '../../store/async-actions';
 import { useAppSelector } from '../../hooks/useStore';
 import { useAppDispatch } from '../../hooks/useStore';
 
@@ -42,7 +42,7 @@ import { useAppDispatch } from '../../hooks/useStore';
 
 
 export default function OfferPage(): JSX.Element {
-  const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
+  // const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
 
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const dispatch = useAppDispatch();
@@ -51,14 +51,15 @@ export default function OfferPage(): JSX.Element {
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferIdActions({ id }));
+      dispatch(fetchReviewsAction({ id }));
     }
   }, [dispatch, id]);
   // const [presentedCity, currentOffer] = getCityById(offers, id as string);
   // const randomOffers = useMemo(() => getRandomOffers(offers, 3, presentedCity as ICity), [offers, presentedCity]);
 
-  const handleSelectOffer = (offer: IOffer) => {
-    setSelectedOffer(offer);
-  };
+  // const handleSelectOffer = (offer: IOffer) => {
+  //   setSelectedOffer(offer);
+  // };
 
   return (
     <>

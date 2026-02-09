@@ -1,36 +1,13 @@
+import { changeCityAction, changeSortingAction, loadingOffersAction, requireAuthorizationAction, loadingReviewsAction, setIsFetchingAction, setUserDataAction, loadingCurrentOfferAction } from './actions';
 import { createReducer } from '@reduxjs/toolkit';
-// import { Offers } from '../mock/offers';
+import { InitialState } from '../types/types';
 import { Cities } from '../const/cities';
-import {
-  changeCityAction,
-  changeSortingAction,
-  loadingOffersAction,
-  requireAuthorizationAction,
-  loadingReviewsAction,
-  setIsFetchingAction,
-  setUserDataAction,
-  loadingCurrentOfferAction
-} from './actions';
 import { AuthorizationStatus } from '../const/const';
-import { IOffer, UserData } from '../types/types';
-import { ICity, SortingType, IReview } from '../types/types';
-
-
-type InitialState = {
-  currentCity: ICity;
-  currentOffer: IOffer | null;
-  offers: IOffer[];
-  isFetching: boolean | null;
-  sorting: SortingType;
-  isAuth: AuthorizationStatus;
-  reviews: IReview[];
-  errorMessage: string | null;
-  userData: UserData | null;
-}
 
 const initialState: InitialState = {
   currentCity: Cities[0],
   currentOffer: null,
+  nearbyOffers: [],
   offers: [],
   isFetching: null,
   sorting: 'Popular',

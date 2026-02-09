@@ -1,4 +1,18 @@
 import { store } from '../store/store';
+import { AuthorizationStatus } from '../const/const';
+
+export type InitialState = {
+  currentCity: ICity;
+  currentOffer: IOffer | null;
+  nearbyOffers: IOffer[];
+  offers: IOffer[];
+  isFetching: boolean | null;
+  sorting: SortingType;
+  isAuth: AuthorizationStatus;
+  reviews: IReview[] | null;
+  errorMessage: string | null;
+  userData: UserData | null;
+}
 
 /** Интерфейс для объекта-карточки локации */
 export interface IOffer {
@@ -15,12 +29,12 @@ export interface IOffer {
   description?: string;
   images?: string[];
   goods?: string[];
-  host?: host;
+  host?: userType;
   bedrooms?: number;
   maxAdults?: number;
 }
 
-interface host {
+export interface userType {
   isPro: boolean;
   name: string;
   avatarUrl: string;
@@ -49,10 +63,10 @@ export interface ICity {
 
 export interface IReview {
   id: number;
-  userName: string;
   rating: number;
-  comment: string;
   date: string;
+  comment: string;
+  user: userType;
 }
 
 export type SortingType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';

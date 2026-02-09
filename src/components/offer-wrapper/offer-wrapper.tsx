@@ -5,7 +5,8 @@ import { IOfferWrapperProps } from '../../types/types.props';
 
 export default function OfferWrapper({ currentOffer }: IOfferWrapperProps): JSX.Element {
   const goods = currentOffer?.goods || [];
-  const ratingWidth = (100 / 5) * (currentOffer?.rating ?? 0);
+  const ratingWidth = (100 / 5) * (currentOffer?.rating || 0);
+  const hostData = currentOffer?.host || null;
 
   return (
     <div className="offer__container container">
@@ -66,7 +67,7 @@ export default function OfferWrapper({ currentOffer }: IOfferWrapperProps): JSX.
           </ul>
         </div>
 
-        <OwnerDescription />
+        <OwnerDescription hostData={hostData} />
 
         <OfferReviews />
 

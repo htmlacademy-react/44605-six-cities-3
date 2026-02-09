@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, AuthorizationStatus } from '../const/const';
-import { AppDispatch, IOffer, State, AuthData, UserData, OfferID } from '../types/types';
-import { loadingOffersAction, requireAuthorizationAction, setIsFetchingAction, setUserDataAction, loadingCurrentOfferAction } from './actions';
+import { AppDispatch, IOffer, State, AuthData, UserData, OfferID, IReview } from '../types/types';
+import { loadingOffersAction, requireAuthorizationAction, setIsFetchingAction, setUserDataAction, loadingCurrentOfferAction, loadingReviewsAction } from './actions';
 import { AxiosInstance } from 'axios';
 import { saveToken, dropToken } from '../services/token';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 const enum AsyncActionsType {
   FetchOffers = 'fetchOffers',
   FetchOfferId = 'fetchOfferId',
+  GetReviewsByOffer = 'getReviewByOffer',
   CheckAuthLogin = 'checkAuthLogin',
   Login = 'login',
   Logout = 'logout',
@@ -81,5 +82,17 @@ export const logoutAction = createAsyncThunk<void, void, { dispatch: AppDispatch
     dispatch(requireAuthorizationAction(AuthorizationStatus.NO_AUTH));
     dispatch(setUserDataAction(null));
     dispatch(setIsFetchingAction(false));
+  }
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, OfferID, { dispatch: AppDispatch; state: State; extra: AxiosInstance }>(
+  AsyncActionsType.GetReviewsByOffer,
+  async ({ id }, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<IReview[]>(`${APIRoute.COMMENTS}/${id}`);
+      dispatch(loadingReviewsAction(data));
+    } catch (error) {
+      toast.error(error as string);
+    }
   }
 );

@@ -1,25 +1,5 @@
-import { IOffer, ICity, IReview, SortingType } from './types';
+import { IOffer, ICity, IReview, SortingType, userType } from './types';
 
-
-// Типизация для pages
-// export interface IAppProps {
-//   offers: IOffer[];
-//   cities: ICity[];
-//   reviews: IReview[];
-//   isAuth: boolean;
-// }
-
-// export interface IFavoritePageProps {
-//   offers: IOffer[];
-// }
-
-
-// export interface IOfferPageProps {
-//   offers: IOffer[];
-// }
-
-
-// Типизация для components
 export interface ICityNavigationProps {
   currentActiveCity: ICity;
   onChangeCity: (city: ICity) => void;
@@ -77,6 +57,7 @@ export interface IPlaceCardMiniProps {
 
 export interface IOfferWrapperProps {
   currentOffer?: IOffer;
+  reviewsByCurrentOffer?: IReview[];
 }
 
 // export interface IOfferReviewsProps {
@@ -93,4 +74,8 @@ export interface IReviewItemProps {
 
 export interface ISortingProps {
   handleChangeSorting: (sorting: SortingType) => void;
+}
+
+export interface IOwnerDescriptionProps {
+  hostData: userType | null;
 }
