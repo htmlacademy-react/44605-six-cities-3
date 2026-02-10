@@ -86,6 +86,16 @@ export type OfferID = {
   id: string;
 }
 
+// export type TReviewsObj = {
+//   id: string;
+//   review: TFeedBack;
+// }
+
+// type TFeedBack = {
+//   rating: number;
+//   review: string;
+// }
+
 export type UserData = {
   email: string;
   token: string;

@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, AuthorizationStatus } from '../const/const';
 import { AppDispatch, IOffer, State, AuthData, UserData, OfferID, IReview } from '../types/types';
 import { loadingOffersAction, requireAuthorizationAction, setIsFetchingAction, setUserDataAction, loadingCurrentOfferAction, loadingReviewsAction, loadingNearbyOffers } from './actions';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, isAxiosError } from 'axios';
 import { saveToken, dropToken } from '../services/token';
 import { toast } from 'react-toastify';
 
@@ -13,7 +13,7 @@ const enum AsyncActionsType {
   // Получить список избранных
   // Изменить статус избранного
   FetchReviewsByOffer = 'fetchReviewByOffer',
-  // Добавить новый комментарий
+  SendReviewByOffer = 'sendReviewByOffer', // Добавить новый комментарий
   CheckAuthLogin = 'checkAuthLogin',
   Login = 'login',
   Logout = 'logout',
@@ -38,7 +38,12 @@ export const fetchOfferIdAction = createAsyncThunk<void, OfferID, { dispatch: Ap
       const { data } = await api.get<IOffer>(`${APIRoute.OFFERS}/${id}`);
       dispatch(loadingCurrentOfferAction(data));
     } catch (error) {
-      toast.error(error as string);
+      if (isAxiosError(error)) {
+        toast.error(error.message);
+      } else {
+        toast.error('Произошла ошибка');
+      }
+      throw error; // Чтобы промис был в статусе rejected
     }
   }
 );
@@ -64,7 +69,25 @@ export const fetchReviewsAction = createAsyncThunk<void, OfferID, { dispatch: Ap
       const { data } = await api.get<IReview[]>(`${APIRoute.COMMENTS}/${id}`);
       dispatch(loadingReviewsAction(data));
     } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error.message);
+      }
+      throw error;
+    }
+  }
+);
+
+/** Отправить комментарий */
+export const sendReviewByOfferAction = createAsyncThunk<void, { id: string; review: { rating: number; review: string } }, { dispatch: AppDispatch; state: State; extra: AxiosInstance }>(
+  AsyncActionsType.SendReviewByOffer,
+  async ({ id, review }, { dispatch, extra: api }) => {
+    try {
+      const body = { rating: review.rating, comment: review.review };
+      await api.post(`${APIRoute.COMMENTS}/${id}`, body);
+      dispatch(fetchReviewsAction({ id }));
+    } catch (error) {
       toast.error(error as string);
+      throw error;
     }
   }
 );

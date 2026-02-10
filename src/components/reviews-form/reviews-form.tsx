@@ -1,4 +1,7 @@
 import { Fragment, ReactEventHandler, useState } from 'react';
+import { sendReviewByOfferAction } from '../../store/async-actions';
+import { useAppSelector } from '../../hooks/useStore';
+import { useAppDispatch } from '../../hooks/useStore';
 
 const rating = [
   { id: 5, title: 'perfect' },
@@ -9,19 +12,25 @@ const rating = [
 ];
 
 export default function ReviewsForm(): JSX.Element {
+  const currentOfferId = useAppSelector((state) => state.currentOffer)?.id ?? '';
+  const dispatch = useAppDispatch();
   const [review, setReview] = useState({
     rating: 0,
     review: ''
   });
 
-  type THandleReviewChange = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  const handleReviewChange: THandleReviewChange = (event) => {
+  const handleReviewChange: ReactEventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
     const { name, value } = event.currentTarget;
-    setReview({ ...review, [name]: value });
+    setReview({ ...review, [name]: name === 'rating' ? Number(value) : value });
+  };
+
+  const handleSubmit: ReactEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    dispatch(sendReviewByOfferAction({ id: currentOfferId.toString(), review }));
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {rating.map(({ id, title }) => (

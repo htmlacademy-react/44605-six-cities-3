@@ -12,21 +12,28 @@ import { useParams } from 'react-router-dom';
 import { fetchNearbyOffersAction, fetchOfferIdAction, fetchReviewsAction } from '../../store/async-actions';
 import { useAppSelector } from '../../hooks/useStore';
 import { useAppDispatch } from '../../hooks/useStore';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const/const';
 
 export default function OfferPage(): JSX.Element {
   const currentOffer = useAppSelector((state) => state.currentOffer); // Получаю выбранный offer из state
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers); // Получаю список предложений неподалеку из state
   const currentCity = useAppSelector((state) => state.currentCity); // Получаю активный город
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchOfferIdAction({ id })); // Запрашиваю с сервера данные по выбранному предложению
-      dispatch(fetchReviewsAction({ id })); // Запрашиваю отзывы по выбранному предложению
-      dispatch(fetchNearbyOffersAction({ id })); // Запрашиваю предложения неподалеку от выбранного предложения
+    if (!id) {
+      return;
     }
-  }, [dispatch, id]);
+    dispatch(fetchOfferIdAction({ id }))
+      .unwrap()
+      .catch(() => navigate(AppRoute.NOT_FOUND)); // Запрашиваю с сервера данные по выбранному предложению
+    dispatch(fetchReviewsAction({ id })); // Запрашиваю отзывы по выбранному предложению
+    dispatch(fetchNearbyOffersAction({ id })); // Запрашиваю предложения неподалеку от выбранного предложения
+
+  }, [dispatch, navigate, id]);
 
 
   return (

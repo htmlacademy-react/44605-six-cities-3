@@ -14,7 +14,6 @@ const enum ActionType {
   // Загрузить список избранных для пользователя
   // Изменение статуса избранного у offer ?
   LoadingReviews = 'loadingReviews',
-  // Добавление нового комментария?
   RequireAuthorization = 'requireAuthorization',
   SetUserData = 'setUserData',
   SetIsFetching = 'setIsFetching',

@@ -14,7 +14,8 @@ export enum AppRoute {
   ROOT = '/',
   LOGIN = '/login',
   FAVORITES = '/favorites',
-  OFFER = '/offer/:id'
+  OFFER = '/offer/:id',
+  NOT_FOUND = '/404',
 }
 
 /** Перечисление "ручек" путей для роутинга к серверу */
