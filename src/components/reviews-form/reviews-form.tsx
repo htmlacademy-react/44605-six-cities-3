@@ -27,6 +27,10 @@ export default function ReviewsForm(): JSX.Element {
   const handleSubmit: ReactEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     dispatch(sendReviewByOfferAction({ id: currentOfferId.toString(), review }));
+    setReview({
+      rating: 0,
+      review: ''
+    });
   };
 
   return (
@@ -42,6 +46,7 @@ export default function ReviewsForm(): JSX.Element {
               id={`${id}-stars`}
               type="radio"
               value={`${id}`}
+              checked={review.rating === id}
             />
             <label
               htmlFor={`${id}-stars`}
@@ -55,7 +60,7 @@ export default function ReviewsForm(): JSX.Element {
           </Fragment>
         ))}
       </div>
-      <textarea onChange={handleReviewChange} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" >
+      <textarea onChange={handleReviewChange} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={review.review}>
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.</p>

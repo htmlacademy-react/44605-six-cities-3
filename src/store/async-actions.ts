@@ -121,7 +121,9 @@ export const loginAction = createAsyncThunk<void, AuthData, { dispatch: AppDispa
     } catch (error) {
       dispatch(setIsFetchingAction(false));
       dispatch(requireAuthorizationAction(AuthorizationStatus.NO_AUTH));
-      toast.error('Что-то пошло не так');
+
+      toast.error('Неверный логин или пароль');
+
     }
   }
 );

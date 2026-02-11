@@ -1,7 +1,6 @@
 // Подключение вспомогательных файлов
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-
 // Подключение компонентов
 import MainPage from '../pages/main-page/main-page';
 import LoginPage from '../pages/login-page/login-page';
@@ -15,7 +14,6 @@ import { AppRoute } from '../const/const';
 
 
 export default function App(): JSX.Element {
-
   return (
     <HelmetProvider>
       <BrowserRouter>
