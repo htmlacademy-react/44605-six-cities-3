@@ -1,8 +1,6 @@
 // Подключение вспомогательных файлов
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-
-// Подключение компонентов
 import OfferImages from '../../components/offer-images/offer-images';
 import OfferWrapper from '../../components/offer-wrapper/offer-wrapper';
 import OfferMap from '../../components/offer-map/offer-map';
@@ -16,9 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 
 export default function OfferPage(): JSX.Element {
-  const currentOffer = useAppSelector((state) => state.currentOffer); // Получаю выбранный offer из state
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers); // Получаю список предложений неподалеку из state
-  const currentCity = useAppSelector((state) => state.currentCity); // Получаю активный город
+  const globalState = useAppSelector((state) => state);
+  const { currentOffer, nearbyOffers, currentCity } = globalState;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -29,10 +26,11 @@ export default function OfferPage(): JSX.Element {
     }
     dispatch(fetchOfferIdAction({ id }))
       .unwrap()
-      .catch(() => navigate(AppRoute.NOT_FOUND)); // Запрашиваю с сервера данные по выбранному предложению
-    dispatch(fetchReviewsAction({ id })); // Запрашиваю отзывы по выбранному предложению
-    dispatch(fetchNearbyOffersAction({ id })); // Запрашиваю предложения неподалеку от выбранного предложения
-
+      .then(() => {
+        dispatch(fetchReviewsAction({ id }));
+        dispatch(fetchNearbyOffersAction({ id }));
+      })
+      .catch(() => navigate(AppRoute.NOT_FOUND));
   }, [dispatch, navigate, id]);
 
 

@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, AuthorizationStatus } from '../const/const';
-import { IOffer, TAuthData, UserData, OfferID, IReview } from '../types/types';
+import { IOffer, IAuthData, IUserData, IOfferId, IReview } from '../types/types';
 import { TAppDispatch, TState } from '../store/store';
 import { loadingOffersAction, requireAuthorizationAction, setIsFetchingAction, setUserDataAction, loadingCurrentOfferAction, loadingReviewsAction, loadingNearbyOffers } from './actions';
-import { AxiosInstance, isAxiosError } from 'axios';
+import { AxiosInstance } from 'axios';
 import { saveToken, dropToken } from '../services/token';
 import { toast } from 'react-toastify';
 
@@ -32,25 +32,22 @@ export const fetchOffersAction = createAsyncThunk<void, void, { dispatch: TAppDi
 );
 
 /** Получить предложение */
-export const fetchOfferIdAction = createAsyncThunk<void, OfferID, { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }>(
+export const fetchOfferIdAction = createAsyncThunk<void, IOfferId, { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }>(
   AsyncActionsType.FetchOfferId,
   async ({ id }, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<IOffer>(`${APIRoute.OFFERS}/${id}`);
       dispatch(loadingCurrentOfferAction(data));
     } catch (error) {
-      if (isAxiosError(error)) {
-        toast.error(error.message);
-      } else {
-        toast.error('Произошла ошибка');
-      }
+      toast.error('Страницы не существует');
       throw error; // Чтобы промис был в статусе rejected
     }
+
   }
 );
 
 /** Получить список предложений неподалёку  */
-export const fetchNearbyOffersAction = createAsyncThunk<void, OfferID, { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }>(
+export const fetchNearbyOffersAction = createAsyncThunk<void, IOfferId, { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }>(
   AsyncActionsType.FetchNearbyOffers,
   async ({ id }, { dispatch, extra: api }) => {
     try {
@@ -63,17 +60,14 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, OfferID, { dispatc
 );
 
 /** Получить список комментариев */
-export const fetchReviewsAction = createAsyncThunk<void, OfferID, { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }>(
+export const fetchReviewsAction = createAsyncThunk<void, IOfferId, { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }>(
   AsyncActionsType.FetchReviewsByOffer,
   async ({ id }, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<IReview[]>(`${APIRoute.COMMENTS}/${id}`);
       dispatch(loadingReviewsAction(data));
-    } catch (error) {
-      if (isAxiosError(error)) {
-        toast.error(error.message);
-      }
-      throw error;
+    } catch {
+      throw Error;
     }
   }
 );
@@ -87,7 +81,7 @@ export const sendReviewByOfferAction = createAsyncThunk<void, { id: string; revi
       await api.post(`${APIRoute.COMMENTS}/${id}`, body);
       dispatch(fetchReviewsAction({ id }));
     } catch (error) {
-      toast.error(error as string);
+      toast.error('Произошла ошибка отправки, повторите попытку');
       throw error;
     }
   }
@@ -98,7 +92,7 @@ export const checkAuthLoginAction = createAsyncThunk<void, void, { dispatch: TAp
   AsyncActionsType.CheckAuthLogin,
   async (_arg, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<UserData>(APIRoute.LOGIN);
+      const { data } = await api.get<IUserData>(APIRoute.LOGIN);
       dispatch(requireAuthorizationAction(AuthorizationStatus.AUTH));
       dispatch(setUserDataAction(data));
     } catch {
@@ -108,12 +102,12 @@ export const checkAuthLoginAction = createAsyncThunk<void, void, { dispatch: TAp
 );
 
 /** Авторизоваться на сервере */
-export const loginAction = createAsyncThunk<void, TAuthData, { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }>(
+export const loginAction = createAsyncThunk<void, IAuthData, { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }>(
   AsyncActionsType.Login,
   async ({ email, password }, { dispatch, extra: api }) => {
     dispatch(setIsFetchingAction(true));
     try {
-      const { data } = await api.post<UserData>(APIRoute.LOGIN, { email, password });
+      const { data } = await api.post<IUserData>(APIRoute.LOGIN, { email, password });
       const { token } = data;
       saveToken(token);
       dispatch(requireAuthorizationAction(AuthorizationStatus.AUTH));

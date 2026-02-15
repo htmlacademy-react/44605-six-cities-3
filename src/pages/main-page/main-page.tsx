@@ -11,8 +11,10 @@ import { ICity } from '../../types/types';
 
 export default function MainPage(): JSX.Element {
   const dispatch = useAppDispatch(); // Получаем функцию dispatch для отправки действий в хранилище
-  const globalState = useAppSelector((state) => state);
-  const { currentCity, offers, isFetching } = globalState;
+  const offers = useAppSelector((state) => state.offers.offers);
+  const isLoading = useAppSelector((state) => state.offers.isLoading);
+  const oldState = useAppSelector((state) => state.appReducer);
+  const { currentCity, sorting } = oldState;
 
   const handleChangeCity = (newCity: ICity) => {
     dispatch(changeCityAction(newCity));
@@ -28,11 +30,11 @@ export default function MainPage(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <CityNavigation currentCity={currentCity} onChangeCity={handleChangeCity} />
         <div className="cities">
-          {isFetching && <Spinner />}
-          {!isFetching && offers.length > 0 && (
-            <OffersContainer offers={offers} currentCity={currentCity} />
+          {isLoading && <Spinner />}
+          {!isLoading && offers.length > 0 && (
+            <OffersContainer offers={offers} currentCity={currentCity} currentSorting={sorting} />
           )}
-          {!isFetching && offers.length === 0 && <PlacesEmpty />}
+          {!isLoading && offers.length === 0 && <PlacesEmpty />}
         </div>
       </main>
     </>

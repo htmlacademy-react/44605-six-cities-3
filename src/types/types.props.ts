@@ -13,10 +13,23 @@ export interface IOfferImagesProps {
 export interface IOffersContainerProps {
   offers: IOffer[];
   currentCity: ICity;
+  currentSorting: TSortingType;
+}
+
+export interface ISortingProps {
+  currentCity: ICity;
+  currentSorting: TSortingType;
+  handleChangeSorting: (sorting: TSortingType) => void;
+}
+
+export interface ISortingOptionsProps {
+  currentSorting: TSortingType;
+  handleChangeSorting: (sorting: TSortingType) => void;
 }
 
 export interface IPlacesFoundProps {
-  filteredOffers: IOffer[] | null;
+  countOffers: number;
+  cityName: string;
 }
 
 export interface IPlaceCardProps {
@@ -27,7 +40,7 @@ export interface IPlaceCardProps {
 export interface ICitiesMapProps {
   offers: IOffer[];
   selectedOffer: IOffer | null;
-  currentActiveCity: ICity;
+  currentCity: ICity;
 }
 
 export interface IOfferMapProps {
@@ -71,10 +84,6 @@ export interface IReviewListProps {
 
 export interface IReviewItemProps {
   review: IReview;
-}
-
-export interface ISortingProps {
-  handleChangeSorting: (sorting: TSortingType) => void;
 }
 
 export interface IOwnerDescriptionProps {

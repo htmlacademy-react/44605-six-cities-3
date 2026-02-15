@@ -11,7 +11,7 @@ export interface IInitialState {
   isAuth: AuthorizationStatus;
   reviews: IReview[] | null;
   errorMessage: string | null;
-  userData: UserData | null;
+  userData: IUserData | null;
 }
 
 /** Интерфейс для объекта-карточки локации */
@@ -72,16 +72,16 @@ export type TSortingType = 'Popular' | 'Price: low to high' | 'Price: high to lo
 
 export type TToken = string;
 
-export type TAuthData = {
+export interface IAuthData {
   email: string;
   password: string;
 }
 
-export type OfferID = {
+export interface IOfferId {
   id: string;
 }
 
-export type UserData = {
+export interface IUserData {
   email: string;
   token: string;
   name: string;

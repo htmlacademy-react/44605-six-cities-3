@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ICity, IOffer, IReview, UserData } from '../types/types';
+import { ICity, IOffer, IReview, IUserData } from '../types/types';
 import { TSortingType } from '../types/types';
 import { AuthorizationStatus } from '../const/const';
 
@@ -55,7 +55,7 @@ export const requireAuthorizationAction = createAction(ActionType.RequireAuthori
 }));
 
 /** Авторизация пользователя */
-export const setUserDataAction = createAction(ActionType.SetUserData, (userData: UserData | null) => ({
+export const setUserDataAction = createAction(ActionType.SetUserData, (userData: IUserData | null) => ({
   payload: userData,
 }));
 
