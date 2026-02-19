@@ -14,6 +14,7 @@ const rating = [
 
 export default function ReviewsForm(): JSX.Element {
   const currentOfferId = useAppSelector((state) => state.offers.offerById)?.id ?? '';
+  const isSending = useAppSelector((state) => state.reviews.isSending);
   const dispatch = useAppDispatch();
   const [review, setReview] = useState({
     rating: 0,
@@ -53,6 +54,7 @@ export default function ReviewsForm(): JSX.Element {
               type="radio"
               value={`${id}`}
               checked={review.rating === id}
+              disabled={isSending}
             />
             <label
               htmlFor={`${id}-stars`}
@@ -66,16 +68,16 @@ export default function ReviewsForm(): JSX.Element {
           </Fragment>
         ))}
       </div>
-      <textarea onChange={handleReviewChange} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={review.review}>
+      <textarea onChange={handleReviewChange} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={review.review} disabled={isSending}>
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.</p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.rating === 0 || review.review.length < 50}
+          disabled={review.rating === 0 || review.review.length < 50 || review.review.length > 300 || isSending}
         >
-          Submit
+          {isSending ? 'Sending...' : 'Submit'}
         </button>
       </div>
     </form >

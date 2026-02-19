@@ -53,7 +53,7 @@ const offersSlice = createSlice({
         })
         .addCase(fetchNearbyOffersAsyncAction.fulfilled, (state, action) => {
           state.isLoading = false;
-          state.nearbyOffers = action.payload;
+          state.nearbyOffers = action.payload.slice(0, 3);
         })
         .addCase(fetchNearbyOffersAsyncAction.rejected, (state, action) => {
           state.isLoading = false;

@@ -5,12 +5,14 @@ import { IReview } from '../../types/types';
 interface IReviewsState {
   reviews: IReview[];
   isLoading: boolean;
+  isSending: boolean;
   error: string | null;
 }
 
 const initialState: IReviewsState = {
   reviews: [],
   isLoading: false,
+  isSending: false,
   error: null,
 };
 
@@ -33,13 +35,13 @@ const reviewsSlice = createSlice({
           state.error = action.error.message ?? 'Ошибка запроса к серверу';
         })
         .addCase(sendReviewByOfferAsyncAction.pending, (state) => {
-          state.isLoading = true;
+          state.isSending = true;
         })
         .addCase(sendReviewByOfferAsyncAction.fulfilled, (state) => {
-          state.isLoading = false;
+          state.isSending = false;
         })
         .addCase(sendReviewByOfferAsyncAction.rejected, (state, action) => {
-          state.isLoading = false;
+          state.isSending = false;
           state.error = action.error.message ?? 'Произошла ошибка отправки, повторите попытку';
         });
     }

@@ -1,5 +1,5 @@
 // Подключение вспомогательных файлов
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import OfferImages from '../../components/offer-images/offer-images';
 import OfferWrapper from '../../components/offer-wrapper/offer-wrapper';
@@ -13,14 +13,17 @@ import { useAppSelector } from '../../hooks/useStore';
 import { useAppDispatch } from '../../hooks/useStore';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
+import Spinner from '../../components/spinner/spinner';
 
 export default function OfferPage(): JSX.Element {
   const currentCity = useAppSelector((state) => state.appReducer.currentCity);
   const currentOffer = useAppSelector((state) => state.offers.offerById);
   const nearbyOffers = useAppSelector((state) => state.offers.nearbyOffers);
+  const isLoading = useAppSelector((state) => state.offers.isLoading);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+  const currentOfferImages = useMemo(() => currentOffer?.images ?? [], [currentOffer]);
 
   useEffect(() => {
     if (!id) {
@@ -35,6 +38,10 @@ export default function OfferPage(): JSX.Element {
       .catch(() => navigate(AppRoute.NOT_FOUND));
   }, [dispatch, navigate, id]);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
 
   return (
     <>
@@ -43,14 +50,14 @@ export default function OfferPage(): JSX.Element {
       </Helmet>
       <main className="page__main page__main--offer">
         <section className="offer">
-          <OfferImages images={currentOffer?.images || []} />
+          <OfferImages images={currentOfferImages} />
           <OfferWrapper currentOffer={currentOffer as IOffer} />
           {currentOffer && <OfferMap currentCity={currentCity} currentOffer={currentOffer} nearbyOffers={nearbyOffers} />}
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                {nearbyOffers.slice(0, 3).map((offer) => <PlaceCard key={offer.id} offer={offer} />)}
+                {nearbyOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} />)}
               </div>
             </section>
           </div>

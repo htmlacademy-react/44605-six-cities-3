@@ -16,7 +16,7 @@ export default function OfferWrapper({ currentOffer }: IOfferWrapperProps): JSX.
   const isLoggedIn = isAuth === AuthorizationStatus.AUTH;
   const { id, isFavorite } = currentOffer || {};
   const goods = currentOffer?.goods || [];
-  const ratingWidth = (100 / 5) * (currentOffer?.rating || 0);
+  const ratingWidth = Math.round((100 / 5) * (currentOffer?.rating || 0));
   const hostData = currentOffer?.host || null;
 
   const handleChangeFavoriteStatus = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,10 +74,10 @@ export default function OfferWrapper({ currentOffer }: IOfferWrapperProps): JSX.
             {currentOffer?.type}
           </li>
           <li className="offer__feature offer__feature--bedrooms">
-            {currentOffer?.bedrooms} Bedrooms
+            {currentOffer?.bedrooms} {currentOffer?.bedrooms && currentOffer?.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
           </li>
           <li className="offer__feature offer__feature--adults">
-            Max {currentOffer?.maxAdults} adults
+            Max {currentOffer?.maxAdults} {currentOffer?.maxAdults && currentOffer?.maxAdults > 1 ? 'adults' : 'adult'}
           </li>
         </ul>
 

@@ -5,8 +5,9 @@ import { useAppSelector, useAppDispatch } from '../../hooks/useStore';
 import { logoutAsyncAction } from '../../store/thunks/user';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { memo } from 'react';
 
-export default function Layout(): JSX.Element {
+function Layout(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
@@ -83,3 +84,5 @@ export default function Layout(): JSX.Element {
     </div >
   );
 }
+
+export default memo(Layout);
