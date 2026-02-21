@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function OfferWrapper({ currentOffer }: IOfferWrapperProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

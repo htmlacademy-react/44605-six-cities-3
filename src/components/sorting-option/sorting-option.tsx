@@ -1,12 +1,7 @@
 import { ISortingOptionsProps } from '../../types/types.props';
 import { TSortingType } from '../../types/types';
+import { sortingOptions } from '../../const/const';
 
-const sortingOptions = [
-  { label: 'Popular', value: 'Popular' },
-  { label: 'Price: low to high', value: 'Price: low to high' },
-  { label: 'Price: high to low', value: 'Price: high to low' },
-  { label: 'Top rated first', value: 'Top rated first' },
-];
 
 export default function SortingOption({ currentSorting, handleChangeSorting }: ISortingOptionsProps): JSX.Element {
   return (

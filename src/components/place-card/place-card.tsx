@@ -6,9 +6,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
 import { toast } from 'react-toastify';
 import { getReverseBooleanValue } from '../../utils/utils';
 import { useNavigate } from 'react-router-dom';
+import { memo } from 'react';
 
 
-export default function PlaceCard({ offer, onMouseEnter }: IPlaceCardProps): JSX.Element {
+function PlaceCard({ offer, onMouseEnter }: IPlaceCardProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector((state) => state.user.isAuth);
@@ -31,7 +32,7 @@ export default function PlaceCard({ offer, onMouseEnter }: IPlaceCardProps): JSX
   };
 
   return (
-    <article className="cities__card place-card" onMouseEnter={onMouseEnter}>
+    <article className="cities__card place-card" onMouseEnter={() => onMouseEnter?.(offer)}>
       <Link to={offerPath} className="place-card__link">
         {isPremium && (
           <div className="place-card__mark">
@@ -71,3 +72,6 @@ export default function PlaceCard({ offer, onMouseEnter }: IPlaceCardProps): JSX
     </article>
   );
 }
+
+const MemoizedPlaceCard = memo(PlaceCard);
+export default MemoizedPlaceCard;

@@ -1,17 +1,10 @@
-// Подключение вспомогательных файлов
 import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { defaultIcon, customIcon } from '../../const/const';
-import { ICity, IOffer } from '../../types/types';
-// Подключение типизации
+import { IOfferMapProps } from '../../types/types.props';
 
-interface IOfferMapProps {
-  currentCity: ICity;
-  currentOffer: IOffer;
-  nearbyOffers: IOffer[];
-}
 
 export default function OfferMap({ currentCity, currentOffer, nearbyOffers }: IOfferMapProps): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);

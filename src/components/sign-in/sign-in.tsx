@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import store from '../../store';
 import { fetchOffersAsyncAction } from '../../store/thunks/offers';
 
+
 export default function SignIn(): JSX.Element {
   const dispatch = useAppDispatch();
   const emailRef = useRef<HTMLInputElement>(null);

@@ -1,5 +1,5 @@
-// Подключение типизации
 import { IEmptyProps } from '../../types/types.props';
+
 
 export default function Empty({ classDiv, classB, classP, boldContent, paragraph }: IEmptyProps): JSX.Element {
   return (

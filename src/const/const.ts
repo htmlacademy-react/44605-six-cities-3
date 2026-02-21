@@ -45,3 +45,18 @@ export const customIcon = leaflet.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
+
+export const rating = [
+  { id: 5, title: 'perfect' },
+  { id: 4, title: 'good' },
+  { id: 3, title: 'no bad' },
+  { id: 2, title: 'badly' },
+  { id: 1, title: 'terribly' },
+];
+
+export const sortingOptions = [
+  { label: 'Popular', value: 'Popular' },
+  { label: 'Price: low to high', value: 'Price: low to high' },
+  { label: 'Price: high to low', value: 'Price: high to low' },
+  { label: 'Top rated first', value: 'Top rated first' },
+];

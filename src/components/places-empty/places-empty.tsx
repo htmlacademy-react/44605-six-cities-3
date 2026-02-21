@@ -1,5 +1,5 @@
-// Подключение компонентов
 import Empty from '../empty/empty';
+
 
 export default function PlacesEmpty(): JSX.Element {
   return (
