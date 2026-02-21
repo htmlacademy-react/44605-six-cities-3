@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { memo } from 'react';
 
+
 function Layout(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -85,4 +86,5 @@ function Layout(): JSX.Element {
   );
 }
 
-export default memo(Layout);
+const MemoizedLayout = memo(Layout);
+export default MemoizedLayout;

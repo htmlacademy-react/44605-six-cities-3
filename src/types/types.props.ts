@@ -34,7 +34,7 @@ export interface IPlacesFoundProps {
 
 export interface IPlaceCardProps {
   offer: IOffer;
-  onMouseEnter?: () => void;
+  onMouseEnter?: (offer: IOffer) => void;
 }
 
 export interface ICitiesMapProps {
@@ -44,9 +44,9 @@ export interface ICitiesMapProps {
 }
 
 export interface IOfferMapProps {
-  selectedOffer: IOffer | null;
-  presentedCity?: ICity;
-  randomOffers?: IOffer[];
+  currentCity: ICity;
+  currentOffer: IOffer;
+  nearbyOffers: IOffer[];
 }
 
 export interface IEmptyProps {

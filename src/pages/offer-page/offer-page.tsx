@@ -1,10 +1,10 @@
 // Подключение вспомогательных файлов
 import { useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import OfferImages from '../../components/offer-images/offer-images';
+import MemoizedOfferImages from '../../components/offer-images/offer-images';
 import OfferWrapper from '../../components/offer-wrapper/offer-wrapper';
 import OfferMap from '../../components/offer-map/offer-map';
-import PlaceCard from '../../components/place-card/place-card';
+import MemoizedPlaceCard from '../../components/place-card/place-card';
 import { IOffer } from '../../types/types';
 import { useParams } from 'react-router-dom';
 import { fetchOfferByIdAsyncAction, fetchNearbyOffersAsyncAction } from '../../store/thunks/offers';
@@ -50,14 +50,14 @@ export default function OfferPage(): JSX.Element {
       </Helmet>
       <main className="page__main page__main--offer">
         <section className="offer">
-          <OfferImages images={currentOfferImages} />
+          <MemoizedOfferImages images={currentOfferImages} />
           <OfferWrapper currentOffer={currentOffer as IOffer} />
           {currentOffer && <OfferMap currentCity={currentCity} currentOffer={currentOffer} nearbyOffers={nearbyOffers} />}
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                {nearbyOffers.map((offer) => <PlaceCard key={offer.id} offer={offer} />)}
+                {nearbyOffers.map((offer) => <MemoizedPlaceCard key={offer.id} offer={offer} />)}
               </div>
             </section>
           </div>

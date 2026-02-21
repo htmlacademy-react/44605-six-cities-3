@@ -3,6 +3,7 @@ import ReviewsForm from '../reviews-form/reviews-form';
 import { useAppSelector } from '../../hooks/useStore';
 import { AuthorizationStatus } from '../../const/const';
 
+
 export default function OfferReviews() {
   const reviews = useAppSelector((state) => state.reviews.reviews);
   const isAuth = useAppSelector((state) => state.user.isAuth);

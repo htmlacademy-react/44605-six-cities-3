@@ -22,7 +22,6 @@ export default function MainPage(): JSX.Element {
 
   const offersByCity = offers.filter((offer) => offer.city.name === currentCity.title);
 
-
   return (
     <>
       <Helmet>

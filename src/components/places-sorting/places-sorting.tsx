@@ -1,10 +1,11 @@
-// import { FormEvent } from 'react';
 import { useState } from 'react';
 import SortingOption from '../sorting-option/sorting-option';
 import { useEffect } from 'react';
 import { ISortingProps } from '../../types/types.props';
+import { memo } from 'react';
 
-export default function PlacesSorting({ currentCity, currentSorting, handleChangeSorting }: ISortingProps): JSX.Element {
+
+function PlacesSorting({ currentCity, currentSorting, handleChangeSorting }: ISortingProps): JSX.Element {
   const [showSortingOptions, setShowSortingOptions] = useState(false);
 
   const handleShowSorting = () => {
@@ -33,3 +34,6 @@ export default function PlacesSorting({ currentCity, currentSorting, handleChang
     </form >
   );
 }
+
+const MemoizedPlacesSorting = memo(PlacesSorting);
+export default MemoizedPlacesSorting;

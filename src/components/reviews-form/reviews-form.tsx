@@ -3,14 +3,8 @@ import { fetchReviewsByIdAsyncAction, sendReviewByOfferAsyncAction } from '../..
 import { useAppSelector } from '../../hooks/useStore';
 import { useAppDispatch } from '../../hooks/useStore';
 import { toast } from 'react-toastify';
+import { rating } from '../../const/const';
 
-const rating = [
-  { id: 5, title: 'perfect' },
-  { id: 4, title: 'good' },
-  { id: 3, title: 'no bad' },
-  { id: 2, title: 'badly' },
-  { id: 1, title: 'terribly' },
-];
 
 export default function ReviewsForm(): JSX.Element {
   const currentOfferId = useAppSelector((state) => state.offers.offerById)?.id ?? '';

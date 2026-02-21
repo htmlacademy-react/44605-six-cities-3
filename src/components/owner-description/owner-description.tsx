@@ -1,7 +1,7 @@
 import { IOwnerDescriptionProps } from '../../types/types.props';
 
-export default function OwnerDescription({ hostData }: IOwnerDescriptionProps) {
 
+export default function OwnerDescription({ hostData }: IOwnerDescriptionProps) {
   return (
     <div className="offer__host">
       <h2 className="offer__host-title">Meet the host</h2>
